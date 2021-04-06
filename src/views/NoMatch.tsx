@@ -1,7 +1,6 @@
-import Layout from '../components/Layout';
-function Statistics() {
+function Nomatch() {
     return (
-        <h2>Statistics</h2>
+        <h2>Nomatch</h2>
     );
 }
-export default Statistics
+export default Nomatch

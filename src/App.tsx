@@ -1,5 +1,3 @@
-// import React from 'react';
-import styled from 'styled-components'
 import {
   HashRouter as Router,
   Switch,
@@ -9,6 +7,7 @@ import {
 import Tags from 'views/Tags'
 import Statistics from 'views/Statistics';
 import Money from 'views/Money';
+import Nomatch from 'views/NoMatch';
 function App() {
   return (
     <Router>
@@ -32,8 +31,4 @@ function App() {
     </Router>
   );
 }
-function Nomatch() {
-  return <h2>404</h2>
-}
-
 export default App;

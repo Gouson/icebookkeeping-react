@@ -32,10 +32,14 @@ body {
     font-family: $font-hei;
     font-size: 16px;
     line-height: 1.2;
+    background-color: #f1f2f6;
 }
 button{
     font-family: inherit;
     
+}
+:focus{
+    outline:none;
 }
 .icon{
     width: 1em;

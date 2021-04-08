@@ -23,7 +23,25 @@ const TagsSection = styled.section`
         margin-top:8px;
     }
 `
-const NotesSection = styled.section``
+const NotesSection = styled.section`
+    padding:0 16px;
+    font-size:14px;
+    >label{
+        display:flex;
+        align-items:center;
+        >span{
+            white-space:nowrap;
+            margin-right:16px;
+        }
+        >input{
+            background:transparent;
+            display:block;
+            width:100%;
+            height:72px;
+            border:none;
+        }
+    }
+`
 const CategorySection = styled.section`
 `
 const NumberPadSection = styled.section`
@@ -41,7 +59,7 @@ function Money() {
                 <button>新增标签</button>
             </TagsSection>
             <NotesSection>
-                <label><span>备注</span><input type="text" /></label>
+                <label><span>备注</span><input type="text" placeholder="在这里添加备注"/></label>
             </NotesSection>
             <CategorySection>
                 <ul>

@@ -30,7 +30,7 @@ const CategorySection: React.FC = () => {
     // type Y=keyof X
     // type Keys=keyof typeof categoryMap
     // const [categoryList] = useState<Keys[]>(['-', '+']) 
-    const [categoryList] = useState<('-'|'+')[]>(['-', '+']) 
+    const [categoryList] = useState<('-' | '+')[]>(['-', '+'])
     const [category, setCategory] = useState('-')
 
     return (
@@ -38,7 +38,10 @@ const CategorySection: React.FC = () => {
             <ul>
                 {categoryList.map(c =>
                     <li className={category === c ? 'selected' : ''}
-                        onClick={() => setCategory(c)} key={c}>{categoryMap[c]}</li>
+                        onClick={() => setCategory(c)}
+                        key={c}>
+                        {categoryMap[c]}
+                    </li>
                 )}
             </ul>
         </Wrapper>

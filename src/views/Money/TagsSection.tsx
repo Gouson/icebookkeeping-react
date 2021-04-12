@@ -31,9 +31,15 @@ const Wrapper = styled.section`
         margin-top:8px;
     }
 `
-const TagsSection: React.FC = (props) => {
+
+type Props = {
+    value: string[];
+    onChange: (selected: string[]) => void;
+}
+const TagsSection: React.FC<Props> = (props) => {
     const [tags, setTags] = useState<string[]>(['衣', '11', '食', '住', '行'])
-    const [selectedTags, setSelectedTags] = useState<string[]>([])
+    // const [selectedTags, setSelectedTags] = useState<string[]>([])
+    const selectedTags = props.value;
     const onAddTag = () => {
         const tagName = window.prompt('新标签为')
         if (tagName !== null) {
@@ -45,9 +51,9 @@ const TagsSection: React.FC = (props) => {
         const index = selectedTags?.indexOf(tag)
         if (index >= 0) {
             //如果tag已被选中，九福之所有没有被选中的tag，做微信的selectedTag
-            setSelectedTags(selectedTags.filter(t => t !== tag))
+            props.onChange(selectedTags.filter(t => t !== tag))
         } else {
-            setSelectedTags([...selectedTags, tag])
+            props.onChange([...selectedTags, tag])
         }
     }
 

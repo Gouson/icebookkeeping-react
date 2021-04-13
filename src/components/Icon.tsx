@@ -3,7 +3,7 @@ try { importAll(require.context('icons', true, /\.svg$/)); } catch (error) { con
 type Props = {
     name: string,
     transform?: string,
-    className?: string
+    className?: string,
 }
 const Icon = (props: Props) => {
     return (

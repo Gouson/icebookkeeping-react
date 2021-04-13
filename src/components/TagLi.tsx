@@ -17,7 +17,7 @@ const Wrapper = styled.li`
     >span{
         display:inline-block;
         border-radius:4px;
-        margin-top:4px;
+        margin-top:16px;
     }
 `
 type Props = {

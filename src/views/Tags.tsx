@@ -1,7 +1,6 @@
 import Layout from '../components/Layout';
 import { useTags } from 'useTags';
 import styled from 'styled-components';
-import Icon from "../components/Icon";
 import { Link } from 'react-router-dom';
 import { TagLi } from '../components//TagLi'
 const TagList = styled.ol`

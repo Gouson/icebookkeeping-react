@@ -10,6 +10,9 @@ const TagList = styled.ol`
     >a{
         width:25%;
     }
+    >button{
+        width:25%;
+    }
     li{
         display:flex;
         flex-direction:column;
@@ -32,19 +35,19 @@ const TagList = styled.ol`
     }
 `
 function Tags() {
-    const { tags, setTags } = useTags()
+    const { tags } = useTags()
     return (
         <Layout >
             <TagList>
                 {tags.map(tag =>
-                    <Link to={'/tags/' + tag}>
-                        <li key={tag}><div className="icon-wrapper"><Icon className="icon" name="snacks" /></div><span>{tag}</span></li>
+                    <Link key={tag.id} to={'/tags/' + tag}>
+                        <li><div className="icon-wrapper"><Icon className="icon" name="snacks" /></div><span>{tag.name}</span></li>
                     </Link>
                 )}
-                <a><li><div className="icon-wrapper" style={{ background: '#fff' }}><Icon className="icon" name="add" /></div><span>新增</span></li>
-                </a>
+                <button><li><div className="icon-wrapper" style={{ background: '#fff' }}><Icon className="icon" name="add" /></div><span>新增</span></li>
+                </button>
             </TagList>
         </Layout>
     );
 }
-export default Tags
+export { Tags }

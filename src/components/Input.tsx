@@ -20,7 +20,7 @@ type Props = {
     label: string
 } & React.InputHTMLAttributes<HTMLInputElement>;
 const Input: React.FC<Props> = (props) => {
-    const { label, ...rest } = props
+    const { label, children, ...rest } = props
     return (
         <Label>
             <span>{label}</span>

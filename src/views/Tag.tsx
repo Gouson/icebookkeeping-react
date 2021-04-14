@@ -60,7 +60,7 @@ const Tag: React.FC = () => {
     const { findTag } = useTags();
     const { id } = useParams<Params>();
     // const tag = findTag(parseInt(id))
-    const [tag, setTag] = useState(findTag(parseInt(id)))
+    const [tag] = useState(findTag(parseInt(id)))
     return (
         <Wrapper>
             <header >

@@ -36,7 +36,8 @@ const useTags = () => {//封装自定义hook
         setTags,
         findTag,
         updateTag,
-        deleteTag
+        deleteTag,
+        findTagIndex
     }
 }
 export { useTags }

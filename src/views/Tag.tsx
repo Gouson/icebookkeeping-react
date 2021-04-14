@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { useParams, useHistory } from "react-router";
 import styled from "styled-components";
 import { useTags } from "useTags"
 import Icon from "../components/Icon";
@@ -72,13 +72,16 @@ const Tag: React.FC = () => {
     const editable = () => {
         setIsDisabled(false)
     }
+    const history = useHistory()
+    const onClickBack = () => {
+        history.goBack()
+    }
     let tagContent
-
     if (tag) {
         tagContent =
             <Wrapper>
                 <header >
-                    <span className="back">
+                    <span className="back" onClick={onClickBack}>
                         <Icon name="heart" ></Icon>
                         <span>返回</span>
                     </span>

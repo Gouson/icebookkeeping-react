@@ -32,11 +32,7 @@ const useTags = () => {//封装自定义hook
         console.log(tags)
     }
     const deleteTag = (id: number) => {
-        const index = findTagIndex(id)
-        const tagsClone = JSON.parse(JSON.stringify(tags))
-        tagsClone.splice(index, 1)
-        setTags(tagsClone)
-        console.log(tagsClone)
+        setTags(tags.filter(tag => tag.id !== id))
     }
     return {
         tags,

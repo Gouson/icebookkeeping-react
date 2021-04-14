@@ -11,7 +11,7 @@ const Label = styled.label`
         background:transparent;
         display:block;
         width:100%;
-        height:72px;
+        height:48px;
         border:none;
     }
 `

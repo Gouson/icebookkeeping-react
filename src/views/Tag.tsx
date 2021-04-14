@@ -2,8 +2,9 @@ import { useParams } from "react-router";
 import styled from "styled-components";
 import { useTags } from "useTags"
 import Icon from "../components/Icon";
-import { TagLi } from '../components//TagLi'
-import { useState } from "react";
+import { TagLi } from '../components/TagLi'
+import { Input } from '../components/Input'
+import React, { useState } from "react";
 type Params = {
     id: string
 }
@@ -36,6 +37,9 @@ const Wrapper = styled.div`
             font-size:48px;
         }
     }
+    >main{
+        margin-top:8px;
+    }
     >footer{
         position: absolute;
         bottom:0;
@@ -56,26 +60,65 @@ const Wrapper = styled.div`
         }
     }
 `
+const InputWrapper = styled.div`
+    padding:0 16px;
+    background:white;
+`
 const Tag: React.FC = () => {
-    const { findTag } = useTags();
-    const { id } = useParams<Params>();
-    // const tag = findTag(parseInt(id))
-    const [tag] = useState(findTag(parseInt(id)))
-    return (
-        <Wrapper>
-            <header >
-                <span className="back">
-                    <Icon name="heart" ></Icon>
-                    <span>返回</span>
-                </span>
-                <TagLi iconName={tag.iconName} name={tag.name} color={tag.color}></TagLi>
-            </header>
-            <footer>
-                <button>编辑</button>
-                <div className="line"></div>
-                <button>删除</button>
-            </footer>
-        </Wrapper>
-    )
+    const { findTag, updateTag, deleteTag } = useTags();
+    let { id: idString } = useParams<Params>();
+    const [isDisabled, setIsDisabled] = useState(true)
+    const [tag, setTag] = useState(JSON.parse(JSON.stringify(findTag(parseInt(idString)) ? findTag(parseInt(idString)) : null)))
+    const editable = () => {
+        setIsDisabled(false)
+    }
+    let tagContent
+
+    if (tag) {
+        tagContent =
+            <Wrapper>
+                <header >
+                    <span className="back">
+                        <Icon name="heart" ></Icon>
+                        <span>返回</span>
+                    </span>
+                    <TagLi iconName={tag.iconName} name={tag.name} color={tag.color}></TagLi>
+                </header>
+                <main>
+                    <InputWrapper>
+                        <Input label="标签名称" disabled={isDisabled} value={tag.name}
+                            onChange={(e) => {
+                                setTag({ ...tag, name: e.target.value })
+                            }}
+                        ></Input>
+                    </InputWrapper>
+                    <InputWrapper>
+                        <Input label="图标" disabled={isDisabled} value={tag.iconName}
+                            onChange={(e) => {
+                                setTag({ ...tag, iconName: e.target.value })
+                            }}
+                        ></Input>
+                    </InputWrapper>
+                    <InputWrapper>
+                        <Input label="图标颜色" disabled={isDisabled} value={tag.color}
+                            onChange={(e) => {
+                                setTag({ ...tag, color: e.target.value })
+                            }}
+                        ></Input>
+                    </InputWrapper>
+                </main>
+                <footer>
+                    <button onClick={editable}>编辑</button>
+                    <div className="line"></div>
+                    <button onClick={() => updateTag(tag.id, tag)}>保存</button>
+                    <button onClick={() => deleteTag(tag.id)}>删除</button>
+                </footer>
+            </Wrapper >
+
+    } else {
+        tagContent = <div>不存在</div>
+    }
+    return tagContent
+
 }
 export { Tag }

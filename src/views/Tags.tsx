@@ -16,7 +16,7 @@ const TagList = styled.ol`
     
 `
 function Tags() {
-    const { tags } = useTags()
+    const { tags, addTag } = useTags()
     return (
         <Layout >
             <TagList>
@@ -25,7 +25,7 @@ function Tags() {
                         <TagLi iconName={'snacks'} name={tag.name} color={tag.color}></TagLi>
                     </Link>
                 )}
-                <button>
+                <button onClick={addTag}>
                     <TagLi iconName={'add'} name={'新增'} color={'#fff'}></TagLi>
                 </button>
             </TagList>

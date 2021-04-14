@@ -23,13 +23,10 @@ const useTags = () => {//封装自定义hook
         }
         return result;
     }
-    const updateTag = (id: number, obj: { name: string, color?: string, icon?: string }) => {
-        const index = findTagIndex(id)
-        const tagsClone = JSON.parse(JSON.stringify(tags))
-        tagsClone.splice(index, 1, { id, ...obj })
-        setTags(tagsClone)
-        console.log(tagsClone)
-        console.log(tags)
+    const updateTag = (id: number, obj: { name: string, color: string, iconName: string }) => {
+        setTags(tags.map(tag => {
+            return tag.id === id ? { id, ...obj } : tag
+        }))
     }
     const deleteTag = (id: number) => {
         setTags(tags.filter(tag => tag.id !== id))

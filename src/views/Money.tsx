@@ -22,12 +22,17 @@ function Money() {
     const onChange = (obj: Partial<Selected>) => {
         setSelected({ ...selected, ...obj })
     }
+
+    const submit = () => {
+        console.log(selected)
+        
+    }
     return (
         <MyLayout >
             <TagsSection value={selected.tagIds} onChange={tagIds => onChange({ tagIds })} />
             <NoteSection value={selected.note} onChange={note => onChange({ note })} />
             <CategorySection value={selected.category} onChange={category => onChange({ category })} />
-            <NumberPadSection value={selected.amount} onChange={amount => onChange({ amount })} onOk={() => { }} />
+            <NumberPadSection value={selected.amount} onChange={amount => onChange({ amount })} onOk={submit} />
         </MyLayout>
     );
 }

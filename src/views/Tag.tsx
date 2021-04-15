@@ -1,6 +1,6 @@
 import { useParams, useHistory } from "react-router";
 import styled from "styled-components";
-import { useTags } from "useTags"
+import { useTags } from "hooks/useTags"
 import Icon from "../components/Icon";
 import { TagLi } from '../components/TagLi'
 import { Input } from '../components/Input'
@@ -68,6 +68,8 @@ const Tag: React.FC = () => {
     const { findTag, updateTag, deleteTag } = useTags();
     let { id: idString } = useParams<Params>();
     const [isDisabled, setIsDisabled] = useState(true)
+    // console.log(findTag(parseInt(idString)))
+    console.log(123)
     const [tag, setTag] = useState(JSON.parse(JSON.stringify(findTag(parseInt(idString)) ? findTag(parseInt(idString)) : null)))
     const editable = () => {
         setIsDisabled(false)

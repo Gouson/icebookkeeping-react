@@ -16,7 +16,11 @@ const useTags = () => {//封装自定义hook
     const [tags, setTags] = useState<Tag[]>([])
     useEffect(() => {
         // aftermounted
-        setTags(JSON.parse(window.localStorage.getItem('tags') || '[]'))
+        let localTags = (JSON.parse(window.localStorage.getItem('tags') || '[]'))
+        if (localTags.length === 0) {
+            localTags = defaultTags;
+        }
+        setTags(localTags)
     }, []);
 
     useUpdate(() => {
@@ -45,7 +49,8 @@ const useTags = () => {//封装自定义hook
     }
     const addTag = () => {
         const tagName = window.prompt('新标签为')
-        if (tagName !== null) {
+
+        if (tagName !== null && tagName !== '') {
             setTags([...tags, { id: createId(), name: tagName, color: '#2c3e50', iconName: 'snacks' }])
         }
     }

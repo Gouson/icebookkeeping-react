@@ -1,6 +1,6 @@
 import { useParams, useHistory } from "react-router";
 import styled from "styled-components";
-import { useTags } from "useTags"
+import { useTags } from "hooks/useTags"
 import Icon from "../components/Icon";
 import { TagLi } from '../components/TagLi'
 import { Input } from '../components/Input'

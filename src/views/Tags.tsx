@@ -22,7 +22,7 @@ function Tags() {
             <TagList>
                 {tags.map(tag =>
                     <Link key={tag.id} to={'/tags/' + tag.id}>
-                        <TagLi iconName={'snacks'} name={tag.name} color={tag.color}></TagLi>
+                        <TagLi iconName={tag.iconName} name={tag.name} color={tag.color}></TagLi>
                     </Link>
                 )}
                 <button onClick={addTag}>

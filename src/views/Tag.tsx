@@ -4,7 +4,8 @@ import { useTags } from "hooks/useTags"
 import Icon from "../components/Icon";
 import { TagLi } from '../components/TagLi'
 import { Input } from '../components/Input'
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { IconSelectPadWrapper } from "components/IconSelectPadWrapper";
 type Params = {
     id: string
 }
@@ -12,6 +13,8 @@ type Params = {
 
 const Wrapper = styled.div`
     height:100vh;
+    overflow:hidden;
+    position: relative;
     >header{
         position: relative;
         display:flex;
@@ -47,10 +50,10 @@ const Wrapper = styled.div`
         justify-content:space-around;
         align-items:center;
         width:100%;
-        border-top:2px solid #a4b0be;
+        border-top:1px solid #a4b0be;
         >.line{
             height:32px;
-            width: 2px;
+            width: 1px;
             background:#a4b0be;
         }
         >button{
@@ -70,6 +73,7 @@ const Tag: React.FC = () => {
     const [isDisabled, setIsDisabled] = useState(true)
     const tag = findTag(parseInt(idString))
     const [newTag, setNewTag] = useState(tag)
+    const [isChangeIcon, setIsChangeIcon] = useState<string>('')
     const editable = () => {
         setIsDisabled(false)
         setNewTag(tag)
@@ -79,7 +83,9 @@ const Tag: React.FC = () => {
         history.goBack()
     }
     let tagContent
-
+    const changeIcon = () => {
+        setIsChangeIcon('yes')
+    }
     if (newTag) {
         tagContent =
             <Wrapper>
@@ -88,7 +94,7 @@ const Tag: React.FC = () => {
                         <Icon name="heart" ></Icon>
                         <span>返回</span>
                     </span>
-                    <TagLi iconName={newTag.iconName} name={newTag.name} color={newTag.color}></TagLi>
+                    <TagLi iconName={newTag.iconName} name={newTag.name} color={newTag.color} onClick={changeIcon}></TagLi>
                 </header>
                 <main>
                     <InputWrapper>
@@ -98,25 +104,12 @@ const Tag: React.FC = () => {
                             }}
                         ></Input>
                     </InputWrapper>
-                    <InputWrapper>
-                        <Input label="图标" disabled={isDisabled} value={newTag.iconName}
-                            onChange={(e) => {
-                                setNewTag({ ...newTag, iconName: e.target.value })
-                            }}
-                        ></Input>
-                    </InputWrapper>
-                    <InputWrapper>
-                        <Input label="图标颜色" disabled={isDisabled} value={newTag.color}
-                            onChange={(e) => {
-                                setNewTag({ ...newTag, color: e.target.value })
-                            }}
-                        ></Input>
-                    </InputWrapper>
+                    <IconSelectPadWrapper change={isChangeIcon} setChange={setIsChangeIcon} new={newTag} setNew={setNewTag} />
                 </main>
                 <footer>
                     <button onClick={() => { updateTag(newTag.id, newTag); onClickBack() }}>保存</button>
                     <div className="line"></div>
-                    <button onClick={() => deleteTag(newTag.id)}>删除</button>
+                    <button onClick={() => { deleteTag(newTag.id); onClickBack() }}>删除</button>
                 </footer>
             </Wrapper >
     } else if (tag) {
@@ -134,19 +127,11 @@ const Tag: React.FC = () => {
                         <Input label="标签名称" disabled={isDisabled} value={tag.name}
                         ></Input>
                     </InputWrapper>
-                    <InputWrapper>
-                        <Input label="图标" disabled={isDisabled} value={tag.iconName}
-                        ></Input>
-                    </InputWrapper>
-                    <InputWrapper>
-                        <Input label="图标颜色" disabled={isDisabled} value={tag.color}
-                        ></Input>
-                    </InputWrapper>
                 </main>
                 <footer>
                     <button onClick={editable}>编辑</button>
                     <div className="line"></div>
-                    <button onClick={() => deleteTag(tag.id)}>删除</button>
+                    <button onClick={() => { deleteTag(tag.id); onClickBack() }}>删除</button>
                 </footer>
             </Wrapper >
 

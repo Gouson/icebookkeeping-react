@@ -6,13 +6,14 @@ import { NumberPadSection } from './Money/NumberPadSection';
 import { TagsSection } from './Money/TagsSection';
 import { useState } from 'react';
 import { useRecords } from 'hooks/useRecords';
-
 const MyLayout = styled(Layout)`
    display: flex;
    flex-direction:column;
+   .grow{
+    flex-grow:1;
+   }
 `
 type Category = '-' | '+'
-
 const defaultFormData = {
     tagIds: [] as number[],
     note: '',
@@ -38,6 +39,7 @@ function Money() {
     return (
 
         <MyLayout >
+            <div className="grow"></div>
             <TagsSection value={selected.tagIds} onChange={tagIds => onChange({ tagIds })} />
             <NoteSection value={selected.note} onChange={note => onChange({ note })} />
             <CategorySection value={selected.category} onChange={category => onChange({ category })} />

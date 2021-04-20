@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import styled from "styled-components"
 import Icon from "../components/Icon";
 const Wrapper = styled.li`
@@ -23,12 +24,14 @@ const Wrapper = styled.li`
 type Props = {
     iconName: string,
     name: string,
-    color?: string
-}
+    color?: string,
+    onClick?: () => void
+} & React.HTMLAttributes<HTMLDivElement>;
 const TagLi: React.FC<Props> = (props) => {
+    const { iconName, children, className, ...rest } = props
     return (
-        <Wrapper>
-            <div className="icon-wrapper" style={props.color ? { background: props.color } : {}}>
+        <Wrapper onClick={props.onClick} className={classNames(className)}>
+            <div className={classNames("icon-wrapper")} style={props.color ? { background: props.color } : {}} {...rest} >
                 <Icon className="icon-main" name={props.iconName} />
             </div>
             <span>{props.name}</span>

@@ -6,11 +6,35 @@ import { NumberPadSection } from './Money/NumberPadSection';
 import { TagsSection } from './Money/TagsSection';
 import { useState } from 'react';
 import { useRecords } from 'hooks/useRecords';
+import { useTags } from 'hooks/useTags';
+import { IconWithColor } from 'components/IconWithColor';
 const MyLayout = styled(Layout)`
    display: flex;
    flex-direction:column;
    .grow{
     flex-grow:1;
+    background:#FFF;
+    overflow:auto;
+   }
+   
+   .notes-tags{
+       display:flex;
+       justify-content:space-around;
+       align-items:center;
+       position: relative;
+       .tags-section-wrapper{
+           width:100vw;
+            transition:ease 1s linear ;
+            position: absolute;
+            bottom:-130px;
+            z-index:10;
+            &.show{
+                display:block;
+            }
+            &.hidden{
+                display:none;
+            }
+        }
    }
 `
 type Category = '-' | '+'
@@ -27,21 +51,43 @@ function Money() {
     const onChange = (obj: Partial<Selected>) => {
         setSelected({ ...selected, ...obj })
     }
-
+    const { findTag } = useTags()
     const { addRecord } = useRecords()
     const submit = () => {
         const resultStatus = addRecord(selected)
         if (resultStatus) {
             alert('保存成功')
             setSelected(defaultFormData)
+            setShowTagsSeciton(false)
         }
+
+    }
+    const [showTagsSeciton, setShowTagsSeciton] = useState(false)
+    const toggleTagsSection = () => {
+        setShowTagsSeciton(!showTagsSeciton)
     }
     return (
 
         <MyLayout >
-            <div className="grow"></div>
-            <TagsSection value={selected.tagIds} onChange={tagIds => onChange({ tagIds })} />
-            <NoteSection value={selected.note} onChange={note => onChange({ note })} />
+            <div className="grow">
+
+            </div>
+
+
+            <div className="notes-tags">
+                <div className={showTagsSeciton ? 'tags-section-wrapper show' : 'tags-section-wrapper hidden'}>
+                    <TagsSection value={selected.tagIds} onChange={tagIds => onChange({ tagIds })} />
+                </div>
+
+                <NoteSection value={selected.note} onChange={note => onChange({ note })} />
+                <div onClick={toggleTagsSection}>
+                    {
+                        selected.tagIds.length <= 0 ? 
+                        <IconWithColor iconName={'defaultTag'}></IconWithColor> : 
+                        <div><IconWithColor iconName={findTag(selected.tagIds[0]).iconName} color={findTag(selected.tagIds[0]).color} /></div>
+                    }
+                </div>
+            </div>
             <CategorySection value={selected.category} onChange={category => onChange({ category })} />
             <NumberPadSection value={selected.amount} onChange={value => onChange({ amount: value })} onOk={submit} />
         </MyLayout >

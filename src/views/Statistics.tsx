@@ -11,7 +11,7 @@ const RecordItemDiv = styled.div`
     justify-content:space-between;
     align-items:center;
     padding:10px 16px;
-    >.date{
+    >.note{
         padding:0 8px;
     }
     >.money{
@@ -63,8 +63,8 @@ function Statistics() {
                         return (
                             <RecordItemDiv key={r.createdAt}>
                                 <IconWithColor iconName={findTag(r.tagIds[0]).iconName} color={findTag(r.tagIds[0]).color} />
-                                {/* <span> {r.note}</span> */}
-                                <span className="date">{day(r.createdAt).format('YYYY-MM-DD')}</span>
+                                <span className="note"> {r.note}</span>
+                                {/* <span className="date">{day(r.createdAt).format('YYYY-MM-DD')}</span> */}
                                 <span className="money">￥{r.amount}</span>
                             </RecordItemDiv>
                         )

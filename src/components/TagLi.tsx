@@ -19,6 +19,7 @@ const Wrapper = styled.li`
         display:inline-block;
         border-radius:4px;
         margin-top:16px;
+        height:18px;
     }
 `
 type Props = {

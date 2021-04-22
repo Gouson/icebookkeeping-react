@@ -82,6 +82,14 @@ const Tag: React.FC = () => {
     const onClickBack = () => {
         history.goBack()
     }
+    const update = () => {
+        if (!newTag.name.trim()) {
+            alert('标签名不能为空')
+            return
+        }
+        updateTag(newTag.id, newTag)
+        onClickBack()
+    }
     let tagContent
     const changeIcon = () => {
         setIsChangeIcon('yes')
@@ -107,7 +115,7 @@ const Tag: React.FC = () => {
                     <IconSelectPadWrapper change={isChangeIcon} setChange={setIsChangeIcon} new={newTag} setNew={setNewTag} />
                 </main>
                 <footer>
-                    <button onClick={() => { updateTag(newTag.id, newTag); onClickBack() }}>保存</button>
+                    <button onClick={update}>保存</button>
                     <div className="line"></div>
                     <button onClick={() => { deleteTag(newTag.id); onClickBack() }}>删除</button>
                 </footer>

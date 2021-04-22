@@ -8,15 +8,10 @@ import { useState } from 'react';
 import { useRecords } from 'hooks/useRecords';
 import { useTags } from 'hooks/useTags';
 import { IconWithColor } from 'components/IconWithColor';
+import { TodayRecords } from '../components/TodayRecords'
 const MyLayout = styled(Layout)`
    display: flex;
    flex-direction:column;
-   .grow{
-    flex-grow:1;
-    background:#FFF;
-    overflow:auto;
-   }
-   
    .notes-tags{
        display:flex;
        justify-content:space-around;
@@ -69,9 +64,10 @@ function Money() {
     return (
 
         <MyLayout >
-            <div className="grow">
 
-            </div>
+            <TodayRecords>
+
+            </TodayRecords>
 
 
             <div className="notes-tags">
@@ -82,9 +78,9 @@ function Money() {
                 <NoteSection value={selected.note} onChange={note => onChange({ note })} />
                 <div onClick={toggleTagsSection}>
                     {
-                        selected.tagIds.length <= 0 ? 
-                        <IconWithColor iconName={'defaultTag'}></IconWithColor> : 
-                        <div><IconWithColor iconName={findTag(selected.tagIds[0]).iconName} color={findTag(selected.tagIds[0]).color} /></div>
+                        selected.tagIds.length <= 0 ?
+                            <IconWithColor iconName={'defaultTag'}></IconWithColor> :
+                            <div><IconWithColor iconName={findTag(selected.tagIds[0]).iconName} color={findTag(selected.tagIds[0]).color} /></div>
                     }
                 </div>
             </div>

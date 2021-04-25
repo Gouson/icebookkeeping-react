@@ -1,9 +1,8 @@
-import { RecordItem, useRecords } from "hooks/useRecords"
+import { RecordItem } from "hooks/useRecords"
 import { useTags } from "hooks/useTags"
 import styled from "styled-components"
 import day from 'dayjs'
 import { IconWithColor } from 'components/IconWithColor';
-import { useEffect, useState } from "react";
 const Wrapper = styled.div`
     flex-grow:1;
     background:#FFF;
@@ -21,7 +20,7 @@ const NoRecords = styled.div`
 `
 const TodayListWrapper = styled.div`
     display:flex;
-    flex-direction:column-reverse;
+    flex-direction:column;
 `
 const RecordItemDiv = styled.div`
     display:flex;
@@ -36,19 +35,20 @@ const RecordItemDiv = styled.div`
         text-align:right;
     }
 `
-const TodayRecords: React.FC = () => {
-    const { records } = useRecords()
+type Prop = {
+    records: RecordItem[];
+}
+const TodayRecords: React.FC<Prop> = (props) => {
+    const records = props.records
     const { findTag } = useTags()
-
     const todayRecordsList: RecordItem[] = []
-    // const [todayRecordsList, setT] = useState<RecordItem[]>([])
-    // const array: RecordItem[] = []
     records.forEach(r => {
         const rDate = day(r.createdAt).format('YYYYMMDD')
         if (rDate === day().format('YYYYMMDD')) {
             todayRecordsList.push(r)
         }
     })
+
 
     return (
         <Wrapper>

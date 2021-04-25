@@ -47,7 +47,7 @@ function Money() {
         setSelected({ ...selected, ...obj })
     }
     const { findTag } = useTags()
-    const { addRecord } = useRecords()
+    const { records, addRecord } = useRecords()
     const submit = () => {
         const resultStatus = addRecord(selected)
         if (resultStatus) {
@@ -65,7 +65,7 @@ function Money() {
 
         <MyLayout >
 
-            <TodayRecords>
+            <TodayRecords records={records}>
 
             </TodayRecords>
 

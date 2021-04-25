@@ -44,9 +44,7 @@ const useTags = () => {//封装自定义hook
         }))
     }
     const deleteTag = (id: number) => {
-        if (window.confirm("确定删除标签?")) {
-            setTags(tags.filter(tag => tag.id !== id))
-        }
+        setTags(tags.filter(tag => tag.id !== id))
     }
     const addTag = () => {
         const tagName = window.prompt('新标签为')

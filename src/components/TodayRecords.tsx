@@ -3,12 +3,12 @@ import { useTags } from "hooks/useTags"
 import styled from "styled-components"
 import day from 'dayjs'
 import { IconWithColor } from 'components/IconWithColor';
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ flexDirection?: string }>`
     flex-grow:1;
     background:#FFF;
     overflow:auto;
     display:flex;
-    flex-direction:column-reverse;
+    flex-direction:${(props) => props.flexDirection ? props.flexDirection : 'column'};
 `
 const NoRecords = styled.div`
     height:100%;
@@ -37,6 +37,8 @@ const RecordItemDiv = styled.div`
 `
 type Prop = {
     records: RecordItem[];
+    message?: string;
+    flexDirection?: string;
 }
 const TodayRecords: React.FC<Prop> = (props) => {
     const records = props.records
@@ -51,9 +53,9 @@ const TodayRecords: React.FC<Prop> = (props) => {
 
 
     return (
-        <Wrapper>
+        <Wrapper flexDirection={props.flexDirection}>
             {todayRecordsList.length <= 0 ?
-                <NoRecords>今天还没有记账</NoRecords> :
+                <NoRecords>{props.message ? props.message : ''}</NoRecords> :
                 <TodayListWrapper>{
                     todayRecordsList.map((r, index) =>
                         <RecordItemDiv key={index}>

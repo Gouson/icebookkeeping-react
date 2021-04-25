@@ -4,8 +4,10 @@ import { useTags } from "hooks/useTags"
 import Icon from "../components/Icon";
 import { TagLi } from '../components/TagLi'
 import { Input } from '../components/Input'
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IconSelectPadWrapper } from "components/IconSelectPadWrapper";
+import { RecordItem, useRecords } from '../hooks/useRecords';
+import { TodayRecords } from "components/TodayRecords";
 type Params = {
     id: string
 }
@@ -15,6 +17,8 @@ const Wrapper = styled.div`
     height:100vh;
     overflow:hidden;
     position: relative;
+    display:flex;
+    flex-direction:column;
     >header{
         position: relative;
         display:flex;
@@ -43,9 +47,11 @@ const Wrapper = styled.div`
     >main{
         margin-top:8px;
     }
+    >.title{
+        text-align:center;
+        line-height:48px;
+    }
     >footer{
-        position: absolute;
-        bottom:0;
         display:flex;
         justify-content:space-around;
         align-items:center;
@@ -69,11 +75,21 @@ const InputWrapper = styled.div`
 `
 const Tag: React.FC = () => {
     const { findTag, updateTag, deleteTag } = useTags();
+    const { findRecordByTag, deleteRecord } = useRecords()
     let { id: idString } = useParams<Params>();
     const [isDisabled, setIsDisabled] = useState(true)
     const tag = findTag(parseInt(idString))
     const [newTag, setNewTag] = useState(tag)
+
     const [isChangeIcon, setIsChangeIcon] = useState<string>('')
+    const [resultRecords, setResultRecords] = useState<RecordItem[]>([])
+    // console.log(tag)
+
+    useEffect(() => {
+        if (tag) {
+            setResultRecords(findRecordByTag(tag.id))
+        }
+    }, [tag]);
     const editable = () => {
         setIsDisabled(false)
         setNewTag(tag)
@@ -93,6 +109,34 @@ const Tag: React.FC = () => {
     let tagContent
     const changeIcon = () => {
         setIsChangeIcon('yes')
+    }
+    const _deleteTag = (id: number) => {
+        if (resultRecords.length === 0) {
+            if (window.confirm("确认删除?")) {
+                deleteTag(id);
+                onClickBack();
+            }
+        } else {
+            if (window.confirm("也将删除该标签下所有记录，确认删除吗?")) {
+
+                resultRecords.forEach(r => {
+                    deleteRecord(r.id!)
+                })
+                deleteTag(id);
+                onClickBack();
+            }
+        }
+
+
+
+        // if (window.confirm("也将删除该标签下所有记录，确认删除吗?")) {
+        //     // setTags(tags.filter(tag => tag.id !== id))
+        //     console.log('yes')
+        // } else {
+        //     console.log('no')
+        // }
+        // deleteTag(id)
+        // onClickBack()
     }
     if (newTag) {
         tagContent =
@@ -114,10 +158,17 @@ const Tag: React.FC = () => {
                     </InputWrapper>
                     <IconSelectPadWrapper change={isChangeIcon} setChange={setIsChangeIcon} new={newTag} setNew={setNewTag} />
                 </main>
+                {
+                    resultRecords.length === 0 ? '' : <div className="title">使用过该标签的记录</div>
+                }
+
+                <TodayRecords records={resultRecords} message="该标签还未被使用过">
+
+                </TodayRecords>
                 <footer>
                     <button onClick={update}>保存</button>
                     <div className="line"></div>
-                    <button onClick={() => { deleteTag(newTag.id); onClickBack() }}>删除</button>
+                    <button onClick={() => { _deleteTag(newTag.id) }}>删除</button>
                 </footer>
             </Wrapper >
     } else if (tag) {
@@ -136,10 +187,16 @@ const Tag: React.FC = () => {
                         ></Input>
                     </InputWrapper>
                 </main>
+                {
+                    resultRecords.length === 0 ? '' : <div className="title">使用过该标签的记录</div>
+                }
+
+                <TodayRecords records={resultRecords} message="该标签还未被使用过">
+                </TodayRecords>
                 <footer>
                     <button onClick={editable}>编辑</button>
                     <div className="line"></div>
-                    <button onClick={() => { deleteTag(tag.id); onClickBack() }}>删除</button>
+                    <button onClick={() => { _deleteTag(tag.id) }}>删除</button>
                 </footer>
             </Wrapper >
 

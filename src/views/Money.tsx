@@ -65,7 +65,7 @@ function Money() {
 
         <MyLayout >
 
-            <TodayRecords records={records}>
+            <TodayRecords records={records} message="今天还没有记账哦" flexDirection="column-reverse">
 
             </TodayRecords>
 

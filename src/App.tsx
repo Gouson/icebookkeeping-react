@@ -4,7 +4,7 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-import {Tags} from 'views/Tags'
+import { Tags } from 'views/Tags'
 import Statistics from 'views/Statistics';
 import Money from 'views/Money';
 import Nomatch from 'views/NoMatch';
@@ -13,9 +13,7 @@ import { Tag } from 'views/Tag';
 
 const AppWrapper = styled.div`
   color:#2f3542;
-  max-width:500px;
-  margin:0 auto;
-`                                                                      
+`
 
 function App() {
   return (

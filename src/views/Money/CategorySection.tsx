@@ -30,12 +30,7 @@ type Props = {
 }
 const CategorySection: React.FC<Props> = (props) => {
     const categoryMap = { '-': '支出', '+': '收入' }
-    // type X = typeof categoryMap
-    // type Y=keyof X
-    // type Keys=keyof typeof categoryMap
-    // const [categoryList] = useState<Keys[]>(['-', '+']) 
     const [categoryList] = useState<('-' | '+')[]>(['-', '+'])
-    // const [category, setCategory] = useState('-')
     const category = props.value;
     return (
         <Wrapper>

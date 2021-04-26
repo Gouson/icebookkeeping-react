@@ -2,7 +2,8 @@ import { RecordItem } from "hooks/useRecords"
 import { useTags } from "hooks/useTags"
 import styled from "styled-components"
 import day from 'dayjs'
-import { IconWithColor } from 'components/IconWithColor';
+import RecordSlideItem from 'components/RecordSlideItem';
+import { useState } from "react";
 const Wrapper = styled.div<{ flexDirection?: string }>`
     flex-grow:1;
     background:#FFF;
@@ -22,23 +23,11 @@ const TodayListWrapper = styled.div`
     display:flex;
     flex-direction:column;
 `
-const RecordItemDiv = styled.div`
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:10px 16px;
-    >.note{
-        padding:0 8px;
-    }
-    >.money{
-        flex-grow:1;
-        text-align:right;
-    }
-`
 type Prop = {
     records: RecordItem[];
     message?: string;
     flexDirection?: string;
+    deleteRecord: (id: string) => void
 }
 const TodayRecords: React.FC<Prop> = (props) => {
     const records = props.records
@@ -51,18 +40,17 @@ const TodayRecords: React.FC<Prop> = (props) => {
         }
     })
 
-
+    const [touchingId, setTouchId] = useState<string>('')
+    const changeTouchingId = (id: string) => {
+        setTouchId(id)
+    }
     return (
         <Wrapper flexDirection={props.flexDirection}>
             {todayRecordsList.length <= 0 ?
                 <NoRecords>{props.message ? props.message : ''}</NoRecords> :
                 <TodayListWrapper>{
                     todayRecordsList.map((r, index) =>
-                        <RecordItemDiv key={index}>
-                            <IconWithColor iconName={findTag(r.tagIds[0]).iconName} color={findTag(r.tagIds[0]).color} />
-                            <span className="note"> {r.note}</span>
-                            <span className="money">￥{r.amount}</span>
-                        </RecordItemDiv>
+                        <RecordSlideItem record={r} key={r.createdAt} findTag={findTag} touchingId={touchingId} changeTouchingId={changeTouchingId} deleteRecord={props.deleteRecord}></RecordSlideItem>
                     )
                 }</TodayListWrapper>}
         </Wrapper>

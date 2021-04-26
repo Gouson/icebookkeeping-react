@@ -40,7 +40,7 @@ export const useRecords = () => {
     const deleteRecord = (id: string) => {
         const index = records.findIndex(r => r.id === id ? true : false)
         records.splice(index, 1)
-        setRecords(records)
+        setRecords([...records])
     }
     return {
         records,

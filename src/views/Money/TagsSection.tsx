@@ -9,6 +9,7 @@ const Wrapper = styled.section`
         width:100vw;
         >.tagWrapper{
             padding:0 16px;
+            width:25vw;
             >li{
                 >span{
                     padding:0 8px;

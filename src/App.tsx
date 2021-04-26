@@ -13,6 +13,8 @@ import { Tag } from 'views/Tag';
 
 const AppWrapper = styled.div`
   color:#2f3542;
+  max-width:500px;
+  margin:0 auto;
 `                                                                      
 
 function App() {

@@ -14,6 +14,7 @@ const Wrapper = styled.section`
     }
     > .pad{
         overflow:hidden;
+       
         >button{
             font-size:18px;
             float:left;
@@ -79,6 +80,15 @@ const Wrapper = styled.section`
             &:nth-child(16){
                 background:#e84393;
             } */
+        }
+        @media(max-height:570px){
+            >button{
+                height:48px;
+                &.ok{
+                    height:96px;
+                    float:right;
+                }
+            }
         }
     }
 `

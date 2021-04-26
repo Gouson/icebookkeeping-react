@@ -2,10 +2,11 @@ import { useState } from 'react';
 import Layout from '../components/Layout';
 import { CategorySection } from './Money/CategorySection';
 import { RecordItem, useRecords } from '../hooks/useRecords';
-import { IconWithColor } from 'components/IconWithColor';
+// import { IconWithColor } from 'components/IconWithColor';
 import { useTags } from 'hooks/useTags';
 import styled from 'styled-components';
 import day from 'dayjs';
+import RecordSlideItem from 'components/RecordSlideItem';
 const Tab = styled.div`
     position:absolute;
     top:0;
@@ -15,23 +16,20 @@ const List = styled.div`
     margin-top:60px;
     flex-grow:1;
     overflow:auto;
+    >.no-content{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        margin-top:128px;
+        font-size: 18px;
+        font-weight: bolder;
+    }
 `
 const Main = styled.div`
     background:#FFF;
 `
-const RecordItemDiv = styled.div`
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:10px 16px;
-    >.note{
-        padding:0 8px;
-    }
-    >.money{
-        flex-grow:1;
-        text-align:right;
-    }
-`
+
+
 const Header = styled.h3`
     font-size:18px;
     line-height:20px;
@@ -40,7 +38,7 @@ const Header = styled.h3`
 `
 function Statistics() {
     const [category, setCategory] = useState<'+' | '-'>('-')
-    const { records } = useRecords()
+    const { records, deleteRecord } = useRecords()
     const { findTag } = useTags()
     const selectedRecords = records.filter(r => r.category === category)
     const hash: { [K: string]: RecordItem[] } = {}
@@ -52,7 +50,6 @@ function Statistics() {
         }
         hash[key].push(value)
     })
-
     const array = Object.entries(hash).sort((a, b) => {
         // a[0]b[0]
         if (a[0] === b[0]) {
@@ -67,27 +64,29 @@ function Statistics() {
         return 0
 
     })
+    const [touchingId, setTouchId] = useState<string>('')
+    const changeTouchingId = (id: string) => {
+        setTouchId(id)
+    }
     return (
         <Layout >
             <Tab>
                 <CategorySection value={category} onChange={value => setCategory(value)} />
             </Tab>
             <List>
-                {array.map(([date, records]) => <div key={date}>
-                    <Header>{date}</Header>
-                    <Main >
-                        {records.map(r => {
-                            return (
-                                <RecordItemDiv key={r.createdAt}>
-                                    <IconWithColor iconName={findTag(r.tagIds[0]).iconName} color={findTag(r.tagIds[0]).color} />
-                                    <span className="note"> {r.note}</span>
-                                    {/* <span className="date">{day(r.createdAt).format('YYYY-MM-DD')}</span> */}
-                                    <span className="money">￥{r.amount}</span>
-                                </RecordItemDiv>
-                            )
-                        })}
-                    </Main>
-                </div>)}
+                {
+                    array.length === 0 ? <div className="no-content">无记录</div> : array.map(([date, records]) => <div key={date}>
+                        <Header>{date}</Header>
+                        <Main >
+                            {records.map(r => {
+                                return (
+                                    <RecordSlideItem record={r} key={r.createdAt} findTag={findTag} touchingId={touchingId} changeTouchingId={changeTouchingId} deleteRecord={deleteRecord}></RecordSlideItem>
+                                )
+                            })}
+                        </Main>
+
+                    </div>)
+                }
             </List>
         </Layout>
     );

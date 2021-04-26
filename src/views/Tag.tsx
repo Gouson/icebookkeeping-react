@@ -75,7 +75,7 @@ const InputWrapper = styled.div`
 `
 const Tag: React.FC = () => {
     const { findTag, updateTag, deleteTag } = useTags();
-    const { findRecordByTag, deleteRecord } = useRecords()
+    const { records, findRecordByTag, deleteRecord } = useRecords();
     let { id: idString } = useParams<Params>();
     const [isDisabled, setIsDisabled] = useState(true)
     const tag = findTag(parseInt(idString))
@@ -83,13 +83,12 @@ const Tag: React.FC = () => {
 
     const [isChangeIcon, setIsChangeIcon] = useState<string>('')
     const [resultRecords, setResultRecords] = useState<RecordItem[]>([])
-    // console.log(tag)
 
     useEffect(() => {
         if (tag) {
             setResultRecords(findRecordByTag(tag.id))
         }
-    }, [tag]);//eslint-disable-line react-hooks/exhaustive-deps
+    }, [tag,records]);//eslint-disable-line react-hooks/exhaustive-deps
     const editable = () => {
         setIsDisabled(false)
         setNewTag(tag)
@@ -162,7 +161,7 @@ const Tag: React.FC = () => {
                     resultRecords.length === 0 ? '' : <div className="title">使用过该标签的记录</div>
                 }
 
-                <TodayRecords records={resultRecords} message="该标签还未被使用过">
+                <TodayRecords records={resultRecords} message="该标签还未被使用过" deleteRecord={deleteRecord}>
 
                 </TodayRecords>
                 <footer>
@@ -191,7 +190,7 @@ const Tag: React.FC = () => {
                     resultRecords.length === 0 ? '' : <div className="title">使用过该标签的记录</div>
                 }
 
-                <TodayRecords records={resultRecords} message="该标签还未被使用过">
+                <TodayRecords records={resultRecords} message="该标签还未被使用过" deleteRecord={deleteRecord}>
                 </TodayRecords>
                 <footer>
                     <button onClick={editable}>编辑</button>

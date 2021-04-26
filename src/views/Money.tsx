@@ -46,7 +46,7 @@ function Money() {
         setSelected({ ...selected, ...obj })
     }
     const { findTag } = useTags()
-    const { records, addRecord } = useRecords()
+    const { records, addRecord, deleteRecord } = useRecords()
     const submit = () => {
         const resultStatus = addRecord(selected)
         if (resultStatus) {
@@ -64,7 +64,7 @@ function Money() {
 
         <MyLayout >
 
-            <TodayRecords records={records} message="今天还没有记账哦" flexDirection="column-reverse">
+            <TodayRecords records={records} message="今天还没有记账哦" flexDirection="column-reverse" deleteRecord={deleteRecord}>
 
             </TodayRecords>
 

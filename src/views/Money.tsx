@@ -18,7 +18,6 @@ const MyLayout = styled(Layout)`
        align-items:center;
        position: relative;
        .tags-section-wrapper{
-           width:100vw;
             transition:ease 1s linear ;
             position: absolute;
             bottom:-130px;

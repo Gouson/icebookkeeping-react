@@ -89,7 +89,7 @@ const Tag: React.FC = () => {
         if (tag) {
             setResultRecords(findRecordByTag(tag.id))
         }
-    }, [tag]);
+    }, [tag]);//eslint-disable-line react-hooks/exhaustive-deps
     const editable = () => {
         setIsDisabled(false)
         setNewTag(tag)

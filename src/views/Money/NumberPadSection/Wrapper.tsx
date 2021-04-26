@@ -14,7 +14,6 @@ const Wrapper = styled.section`
     }
     > .pad{
         overflow:hidden;
-       
         >button{
             font-size:18px;
             float:left;

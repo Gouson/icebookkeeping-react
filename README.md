@@ -1,7 +1,7 @@
 
 
 # 彩虹记账
-![](https://raw.githubusercontent.com/Gouson/icebookkeeping-react/main/public/rainbow.png)
+![rainbow](https://raw.githubusercontent.com/Gouson/icebookkeeping-react/main/public/rainbow.png)
 
 ### `yarn install`
 

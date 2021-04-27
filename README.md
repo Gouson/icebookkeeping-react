@@ -1,7 +1,7 @@
 
 
 # 彩虹记账
-
+![RUNOOB 图标](public\rainbow.png)
 
 ### `yarn install`
 

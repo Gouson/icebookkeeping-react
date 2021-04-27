@@ -6,6 +6,7 @@ git init &&
 git add . &&
 git commit -m'deploy' &&
 git remote add origin https://github.com/Gouson/rainbow-bookkeeping.git &&
+#git remote add origin https://gitee.com/gaokexin/rainbow-bookkeeping.git &&
 git branch -M main &&
 git push -u origin main -f &&
 cd -

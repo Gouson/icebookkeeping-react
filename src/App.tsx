@@ -13,9 +13,12 @@ import { Tag } from 'views/Tag';
 
 const AppWrapper = styled.div`
   color:#2f3542;
+  height:100%;
 `
 
 function App() {
+  document.body.style.overflow = 'hidden';
+  document.addEventListener("touchmove", function (e) { e.preventDefault(); }, false);//禁止页面滑动
   return (
     <AppWrapper>
       <Router>

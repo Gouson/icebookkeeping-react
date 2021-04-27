@@ -7,13 +7,13 @@ const hideAnimation = keyframes`
   }
 
   to {
-    top:100vh;
+    top:100%;
   }
 `;
 
 const showAnimation = keyframes`
   from {
-    top:100vh;
+    top:100%;
   }
 
   to {
@@ -25,7 +25,7 @@ const Wrapper = styled.div<{ change?: string }>`
     height:90vh;
     width:100vw;
     position: absolute;
-    top:100vh;
+    top:100%;
     border-radius:8px;
     background:#FFF;
     z-index:10;

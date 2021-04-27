@@ -14,7 +14,7 @@ type Params = {
 
 
 const Wrapper = styled.div`
-    height:100vh;
+    height:100%;
     overflow:hidden;
     position: relative;
     display:flex;

@@ -31,14 +31,19 @@ a {
     text-decoration: none;
     color: inherit;
 }
-
+html{
+    height: 100%;
+}
 body {
     font-family: $font-hei;
     font-size: 16px;
     line-height: 1.2;
     background-color: #f1f2f6;
+    height: 100%;
 }
-
+#root{
+    height: 100%;
+}
 button,
 input {
     font-family: inherit;

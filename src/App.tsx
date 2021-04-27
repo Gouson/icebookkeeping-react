@@ -18,7 +18,7 @@ const AppWrapper = styled.div`
 
 function App() {
   document.body.style.overflow = 'hidden';
-  document.addEventListener("touchmove", function (e) { e.preventDefault(); }, false);//禁止页面滑动
+  document.addEventListener("touchmove", function (e) { e.preventDefault(); }, { passive: false });//禁止页面滑动
   return (
     <AppWrapper>
       <Router>

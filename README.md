@@ -12,7 +12,7 @@
 ### `yarn build`
 
 
-* React / React Router / 自定义 Hooks / webpack / TypeScript / LocalStorage /SVGicon / styled-components
+* React / React Router / 自定义 Hooks / webpack / TypeScript / LocalStorage /SVG Icon / styled-components
 
 * 简单好用的脱机记账工具，为满足个人使用而独立开发的一款记账应用。
 

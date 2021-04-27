@@ -60,10 +60,12 @@ function RecordSlideItem(props: Props) {
         }
     });
     const touchStart = (e: React.TouchEvent) => {
+        e.stopPropagation()
         props.changeTouchingId(r.id ? r.id : '');
         setStartX(e.changedTouches[0].pageX)
     }
     const touchMove = (e: React.TouchEvent) => {
+        e.stopPropagation()
         setDistance(startX - e.changedTouches[0].pageX)
         setCtnTransformX(-distance)
         setDelBtnTransformX(60 - distance)
@@ -80,6 +82,7 @@ function RecordSlideItem(props: Props) {
         }
     }
     const touchEnd = (e: React.TouchEvent) => {
+        e.stopPropagation()
         if (distance > 60 * 0.6) {
             setCtnTransformX(-60);
             setDelBtnTransformX(0);

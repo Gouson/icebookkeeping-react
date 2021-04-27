@@ -11,6 +11,7 @@ const Tab = styled.div`
     position:absolute;
     top:0;
     width:100vw;
+    z-index:10;
 `
 const List = styled.div`
     margin-top:60px;
@@ -51,7 +52,6 @@ function Statistics() {
         hash[key].push(value)
     })
     const array = Object.entries(hash).sort((a, b) => {
-        // a[0]b[0]
         if (a[0] === b[0]) {
             return 0
         }

@@ -55,14 +55,17 @@ const NumberPadSection: React.FC<Props> = (props) => {
     let endX: number, endY: number
     let distanceX: number, distanceY: number
     const touchStart = (e: React.TouchEvent) => {
+        e.stopPropagation()
         startX = e.touches[0].clientX
         startY = e.touches[0].clientY
     }
     const touchMove = (e: React.TouchEvent) => {
+        e.stopPropagation()
         endX = e.touches[0].clientX
         endY = e.touches[0].clientY
     }
     const touchEnd = (e: React.TouchEvent) => {
+        e.stopPropagation()
         distanceX = endX - startX
         distanceY = endY - startY
 
